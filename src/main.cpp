@@ -20,7 +20,7 @@ competition Competition;
 /*  all the physical constants and values for your robot. You should         */
 /*  already have configured your robot manually with the sidebar configurer. */
 /*---------------------------------------------------------------------------*/
-
+bool IntakeIsUp = false;
 Drive chassis(
 
     // Specify your drive setup below. There are eight options:
@@ -212,6 +212,72 @@ void usercontrol(void)
     chassis.control_arcade();
 
     // code
+
+    //blocker
+    if (Controller1.ButtonUp.pressing()){
+      blocker.spin(fwd, 100, percent);
+    }else if (Controller1.ButtonDown.pressing()){
+      blocker.spin(reverse, 100, percent);
+    }else if ((!Controller1.ButtonUp.pressing() && !Controller1.ButtonDown.pressing())){
+      blocker.stop(brakeType::hold);
+    }
+    
+    // intake piston up
+    if (Controller1.ButtonX.pressing()){
+      IntakeUp.set(!IntakeUp);
+      IntakeIsUp = IntakeUp;
+      // while (Controller1.ButtonX.pressing()){} not sure what this line is for?
+    }
+    
+    if (Controller1.ButtonA.pressing()){
+      IntakeUp.set(!IntakeUp);
+      IntakeIsUp = IntakeUp;
+      // while (Controller1.ButtonA.pressing()){} not sure what this line is for?
+    }
+
+    //intake motor intakes in
+    if (Controller1.ButtonR1.pressing()){
+      intake.spin(fwd, 100, percent);
+    }else if (Controller1.ButtonR2.pressing()){
+      //intake motor out
+      intake.spin(reverse, 100, percent);
+    }else if (IntakeIsUp == true && !Controller1.ButtonR2.pressing() && !Controller1.ButtonR1.pressing()){
+      // intake motor out if intake is up
+      intake.spin(reverse, 100, percent);
+    }else if (IntakeIsUp == false && !Controller1.ButtonR2.pressing() && !Controller1.ButtonR1.pressing()){
+      intake.spin(fwd, 100, percent);
+    }else{
+      // else statement, probably should never be used
+      intake.spin(reverse, 100, percent);
+    }
+
+    // wings
+    // wings left
+    if (Controller1.ButtonLeft.pressing()){
+      wingLeft.set(!wingLeft);
+      // while(Controller1.ButtonLeft.pressing()){}; no idea what this line does
+    }
+
+    //wings right
+    if (Controller1.ButtonRight.pressing()){
+      wingRight.set(!wingRight);
+      // while(Controller1.ButtonRight.pressing()){}; no idea what this line does
+    }
+
+    //both wings
+    if (Controller1.ButtonY.pressing()){
+      wingLeft.set(!wingLeft);
+      wingRight.set(!wingRight);
+    }
+
+    //cata
+    if (!CataLimit.pressing() && !Controller1.ButtonB.pressing()){
+      cata.spin(fwd, 100, percent);
+    }else if (CataLimit.pressing() && !Controller1.ButtonB.pressing()){
+      cata.stop(brakeType::hold);
+    }else if (CataLimit.pressing() && Controller1.ButtonB.pressing()){
+      cata.spin(fwd, 100, percent);
+    }
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.

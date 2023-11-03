@@ -8,6 +8,21 @@ using code = vision::code;
 brain  Brain;
 
 // VEXcode device constructors
+motor LF = motor(PORT1, ratio6_1, true);
+motor LB = motor(PORT2, ratio6_1, true);
+motor RF = motor(PORT4, ratio6_1, false);
+motor RB = motor(PORT5, ratio6_1, false);
+motor LT = motor(PORT3, ratio6_1, false);
+motor RT = motor(PORT6, ratio6_1, true);
+inertial Inertial20 = inertial(PORT20);
+controller Controller1 = controller(primary);
+limit CataLimit = limit(Brain.ThreeWirePort.B);
+motor intake = motor(PORT7, ratio18_1, true);
+motor cata = motor(PORT9, ratio36_1, true);
+motor blocker = motor(PORT8, ratio18_1, true);
+digital_out IntakeUp = digital_out(Brain.ThreeWirePort.C);
+digital_out wingLeft = digital_out(Brain.ThreeWirePort.E);
+digital_out wingRight = digital_out(Brain.ThreeWirePort.F);
 
 // VEXcode generated functions
 
