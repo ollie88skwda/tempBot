@@ -2,9 +2,9 @@
 
 void default_constants(){
   // Each constant set is in the form of (maxVoltage, kP, kI, kD, startI).
-  chassis.set_drive_constants(10, 1.5, 0, 10, 0);
+  chassis.set_drive_constants(10, 0.87, 0.75, 17, 0); // good enough, fix at school
   chassis.set_heading_constants(6, .4, 0, 1, 0);
-  chassis.set_turn_constants(12, .4, .03, 3, 15);
+  chassis.set_turn_constants(12, 0.05, 0, 0, 15);
   chassis.set_swing_constants(12, .3, .001, 2, 15);
 
   // Each exit condition set is in the form (settle_error, settle_time, timeout).
@@ -77,4 +77,9 @@ void holonomic_odom_test(){
   chassis.holonomic_drive_to_point(18, 0, 180);
   chassis.holonomic_drive_to_point(0, 18, 270);
   chassis.holonomic_drive_to_point(0, 0, 0);
+}
+
+void myAuton(){
+  chassis.set_heading(0);
+  chassis.turn_to_angle(180);
 }

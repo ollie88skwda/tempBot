@@ -20,7 +20,7 @@ competition Competition;
 /*  all the physical constants and values for your robot. You should         */
 /*  already have configured your robot manually with the sidebar configurer. */
 /*---------------------------------------------------------------------------*/
-
+bool IntakeIsUp = false;
 Drive chassis(
 
     // Specify your drive setup below. There are eight options:
@@ -153,7 +153,7 @@ void autonomous(void)
   switch (current_auton_selection)
   {
   case 0:
-    drive_test(); // This is the default auton, if you don't select from the brain.
+    myAuton(); // This is the default auton, if you don't select from the brain.
     break;        // Change these to be your own auton functions in order to use the auton selector.
   case 1:         // Tap the screen to cycle through autons.
     drive_test();
@@ -212,7 +212,64 @@ void usercontrol(void)
     chassis.control_arcade();
 
     // code
+    if(Controller1.ButtonL1.pressing()){
+      //Blocker Up
+      blocker.spin(fwd, 100, percent);
+    }else if (Controller1.ButtonL2.pressing()){
+      //Blocker Down
+      blocker.spin(reverse, 100, percent);
+    }else if ((!Controller1.ButtonL1.pressing() && !Controller1.ButtonL2.pressing())) {
+      blocker.stop(brakeType::hold);
+    }
 
+    if (Controller1.ButtonX.pressing()){
+      //Intake Toggle
+      IntakeUp.set(!IntakeUp);
+      IntakeIsUp = IntakeUp;
+      while (Controller1.ButtonX.pressing()){}      
+      }
+
+    if (Controller1.ButtonA.pressing()){
+      //Intake Piston Toggle
+      IntakeUp.set(!IntakeUp);
+      IntakeIsUp = IntakeUp;
+      while (Controller1.ButtonA.pressing()){}      
+    }
+
+    
+
+    if (Controller1.ButtonR1.pressing()){
+      //Intake In Manual
+      intake.spin(forward, 100, percent);
+    } else if (Controller1.ButtonR2.pressing()){
+      //Intake Out Manual
+      intake.spin(reverse, 100, percent);
+    } else if (IntakeIsUp == true && !Controller1.ButtonR1.pressing()){
+      // Intake Autospin Out
+      intake.spin(forward, 100, percent);
+    } else if (IntakeIsUp == false && !Controller1.ButtonR2.pressing()){
+      //Intake Autospin In
+      intake.spin(reverse, 100,percent);
+    } else {
+      intake.spin(reverse, 100, percent);
+    }
+
+
+    if (Controller1.ButtonLeft.pressing()) {
+      //Wings Toggle
+      wings.set(!wings);
+      while(Controller1.ButtonLeft.pressing()){}
+    } 
+     if (!CataLimit.pressing() && !Controller1.ButtonDown.pressing() && !Controller1.ButtonDown.pressing()){
+      //Cata Code
+       cata.spin(reverse, 100, percent);
+      } else if (CataLimit.pressing() && !Controller1.ButtonB.pressing() && !Controller1.ButtonDown.pressing()){
+       cata.stop(brakeType::hold);
+      } else if (Controller1.ButtonB.pressing()){
+       cata.spin(reverse, 100, percent);
+      } else if (Controller1.ButtonDown.pressing()){
+        cata.spin(forward, 100, percent);
+      }
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
