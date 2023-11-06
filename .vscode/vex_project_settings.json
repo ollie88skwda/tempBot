@@ -1,10 +1,10 @@
 {
 	"project": {
-		"name": "JAR-Template",
+		"name": "JARTemplate",
 		"slot": 1,
 		"description": "Empty V5 C++ Project",
 		"platform": "V5",
-		"creationDate": "Fri, 03 Nov 2023 18:13:35 GMT",
+		"creationDate": "Fri, 03 Nov 2023 18:14:38 GMT",
 		"language": "cpp",
 		"sdkVersion": "V5_20220726_10_00_00",
 		"cpp": {

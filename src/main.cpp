@@ -222,54 +222,72 @@ void usercontrol(void)
       blocker.stop(brakeType::hold);
     }
 
-    if (Controller1.ButtonX.pressing()){
-      //Intake Toggle
-      IntakeUp.set(!IntakeUp);
-      IntakeIsUp = IntakeUp;
-      while (Controller1.ButtonX.pressing()){}      
-      }
-
-    if (Controller1.ButtonA.pressing()){
-      //Intake Piston Toggle
-      IntakeUp.set(!IntakeUp);
-      IntakeIsUp = IntakeUp;
-      while (Controller1.ButtonA.pressing()){}      
+    //blocker
+    if (Controller1.ButtonUp.pressing()){
+      blocker.spin(fwd, 100, percent);
+    }else if (Controller1.ButtonDown.pressing()){
+      blocker.spin(reverse, 100, percent);
+    }else if ((!Controller1.ButtonUp.pressing() && !Controller1.ButtonDown.pressing())){
+      blocker.stop(brakeType::hold);
     }
-
     
+    // intake piston up
+    if (Controller1.ButtonX.pressing()){
+      IntakeUp.set(!IntakeUp);
+      IntakeIsUp = IntakeUp;
+      // while (Controller1.ButtonX.pressing()){} not sure what this line is for?
+    }
+    
+    if (Controller1.ButtonA.pressing()){
+      IntakeUp.set(!IntakeUp);
+      IntakeIsUp = IntakeUp;
+      // while (Controller1.ButtonA.pressing()){} not sure what this line is for?
+    }
 
+    //intake motor intakes in
     if (Controller1.ButtonR1.pressing()){
-      //Intake In Manual
-      intake.spin(forward, 100, percent);
-    } else if (Controller1.ButtonR2.pressing()){
-      //Intake Out Manual
+      intake.spin(fwd, 100, percent);
+    }else if (Controller1.ButtonR2.pressing()){
+      //intake motor out
       intake.spin(reverse, 100, percent);
-    } else if (IntakeIsUp == true && !Controller1.ButtonR1.pressing()){
-      // Intake Autospin Out
-      intake.spin(forward, 100, percent);
-    } else if (IntakeIsUp == false && !Controller1.ButtonR2.pressing()){
-      //Intake Autospin In
-      intake.spin(reverse, 100,percent);
-    } else {
+    }else if (IntakeIsUp == true && !Controller1.ButtonR2.pressing() && !Controller1.ButtonR1.pressing()){
+      // intake motor out if intake is up
+      intake.spin(reverse, 100, percent);
+    }else if (IntakeIsUp == false && !Controller1.ButtonR2.pressing() && !Controller1.ButtonR1.pressing()){
+      intake.spin(fwd, 100, percent);
+    }else{
+      // else statement, probably should never be used
       intake.spin(reverse, 100, percent);
     }
 
+    // wings
+    // wings left
+    if (Controller1.ButtonLeft.pressing()){
+      wingLeft.set(!wingLeft);
+      // while(Controller1.ButtonLeft.pressing()){}; no idea what this line does
+    }
 
-    if (Controller1.ButtonLeft.pressing()) {
-      //Wings Toggle
-      wings.set(!wings);
-      while(Controller1.ButtonLeft.pressing()){}
-    } 
-     if (!CataLimit.pressing() && !Controller1.ButtonDown.pressing() && !Controller1.ButtonDown.pressing()){
-      //Cata Code
-       cata.spin(reverse, 100, percent);
-      } else if (CataLimit.pressing() && !Controller1.ButtonB.pressing() && !Controller1.ButtonDown.pressing()){
-       cata.stop(brakeType::hold);
-      } else if (Controller1.ButtonB.pressing()){
-       cata.spin(reverse, 100, percent);
-      } else if (Controller1.ButtonDown.pressing()){
-        cata.spin(forward, 100, percent);
-      }
+    //wings right
+    if (Controller1.ButtonRight.pressing()){
+      wingRight.set(!wingRight);
+      // while(Controller1.ButtonRight.pressing()){}; no idea what this line does
+    }
+
+    //both wings
+    if (Controller1.ButtonY.pressing()){
+      wingLeft.set(!wingLeft);
+      wingRight.set(!wingRight);
+    }
+
+    //cata
+    if (!CataLimit.pressing() && !Controller1.ButtonB.pressing()){
+      cata.spin(fwd, 100, percent);
+    }else if (CataLimit.pressing() && !Controller1.ButtonB.pressing()){
+      cata.stop(brakeType::hold);
+    }else if (CataLimit.pressing() && Controller1.ButtonB.pressing()){
+      cata.spin(fwd, 100, percent);
+    }
+
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }

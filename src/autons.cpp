@@ -82,4 +82,71 @@ void holonomic_odom_test(){
 void myAuton(){
   chassis.set_heading(0);
   chassis.turn_to_angle(180);
+
+}
+// it's called boring because its boring, we cant score very much
+void BoringAuton(){
+  default_constants();
+  IntakeUp.set(true);
+
+  //go forward
+
+  //turn left
+
+  //outtake triball
+
+  //turn 180
+
+  //drive forward, intake triball
+
+  //drive forward, attempt to push other triball over
+
+  //drive backwards, push alliance triball in
+
+  //turn right ~35 degrees
+
+  //drive forward, touch bar
+}
+//called FunAuton because it's fun, hopefully 5 ball auton + bar for quals
+void FunAuton(){
+  IntakeUp.set(false);
+
+  //drive back
+  
+  //swing turn back right a little
+
+  // deploy wings
+
+  //swing turn back right the full 90 degrees
+
+  //go backwards, push 2 triballs in, preload and one from matchload
+
+  //go forwards, (maybe) swing turn forward right to face the middle triball
+
+  //go forwards to the triball, almost touching
+
+  //deploy wings, turn right, hopefully knocking middle triball
+
+  //outtake triball
+
+  //deploy wings, turn just over 180, go forward
+
+  //intake triball
+
+  //set_heading to 0
+
+  //drive backwards full speed
+
+  // drive forward, set_heading to 180
+
+  //outtake, drive_forward
+
+  // turn to bar, drive forward to touch bar
+}
+
+//it's called really fun because we get a lot of triballs hopefully :)
+//hopefully 6 ball auton if pid is tuned well
+//elims auton
+void ReallyFunAuton(){
+  //pretty much same thing as FunAuton, just don't go for bar and grab last triball
 }
