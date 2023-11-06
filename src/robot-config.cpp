@@ -21,7 +21,8 @@ motor intake = motor(PORT10, ratio18_1, true);
 motor cata = motor(PORT9, ratio36_1, true);
 motor blocker = motor(PORT8, ratio18_1, true);
 digital_out IntakeUp = digital_out(Brain.ThreeWirePort.C);
-digital_out wings = digital_out(Brain.ThreeWirePort.E);
+digital_out wingLeft = digital_out(Brain.ThreeWirePort.E);
+digital_out wingRight = digital_out(Brain.ThreeWirePort.F);
 // VEXcode generated functions
 
 

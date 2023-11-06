@@ -156,7 +156,7 @@ void autonomous(void)
     myAuton(); // This is the default auton, if you don't select from the brain.
     break;        // Change these to be your own auton functions in order to use the auton selector.
   case 1:         // Tap the screen to cycle through autons.
-    drive_test();
+    myAuton();
     break;
   case 2:
     turn_test();
