@@ -38,7 +38,7 @@ Drive chassis(
     motor_group(RF, RB, RT),
 
     // Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-    PORT20,
+    PORT17,
 
     // Input your wheel diameter. (4" omnis are actually closer to 4.125"):
     3.25,
@@ -46,7 +46,7 @@ Drive chassis(
     // External ratio, must be in decimal, in the format of input teeth/output teeth.
     // If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
     // If the motor drives the wheel directly, this value is 1:
-    0.5,
+    0.6,
 
     // Gyro scale, this is what your gyro reads when you spin the robot 360 degrees.
     // For most cases 360 will do fine here, but this scale factor can be very helpful when precision is necessary.
@@ -153,7 +153,7 @@ void autonomous(void)
   switch (current_auton_selection)
   {
   case 0:
-    drive_test(); // This is the default auton, if you don't select from the brain.
+    myAuton(); // This is the default auton, if you don't select from the brain.
     break;        // Change these to be your own auton functions in order to use the auton selector.
   case 1:         // Tap the screen to cycle through autons.
     drive_test();
@@ -177,6 +177,7 @@ void autonomous(void)
     holonomic_odom_test();
     break;
   }
+  
 }
 
 /*---------------------------------------------------------------------------*/
@@ -215,9 +216,9 @@ void usercontrol(void)
 
     //blocker
     if (Controller1.ButtonUp.pressing()){
-      blocker.spin(fwd, 100, percent);
-    }else if (Controller1.ButtonDown.pressing()){
       blocker.spin(reverse, 100, percent);
+    }else if (Controller1.ButtonDown.pressing()){
+      blocker.spin(fwd, 100, percent);
     }else if ((!Controller1.ButtonUp.pressing() && !Controller1.ButtonDown.pressing())){
       blocker.stop(brakeType::hold);
     }
@@ -237,15 +238,15 @@ void usercontrol(void)
 
     //intake motor intakes in
     if (Controller1.ButtonR1.pressing()){
-      intake.spin(fwd, 100, percent);
+      intake.spin(reverse, 100, percent);
     }else if (Controller1.ButtonR2.pressing()){
       //intake motor out
-      intake.spin(reverse, 100, percent);
+      intake.spin(fwd, 100, percent);
     }else if (IntakeIsUp == true && !Controller1.ButtonR2.pressing() && !Controller1.ButtonR1.pressing()){
       // intake motor out if intake is up
-      intake.spin(reverse, 100, percent);
-    }else if (IntakeIsUp == false && !Controller1.ButtonR2.pressing() && !Controller1.ButtonR1.pressing()){
       intake.spin(fwd, 100, percent);
+    }else if (IntakeIsUp == false && !Controller1.ButtonR2.pressing() && !Controller1.ButtonR1.pressing()){
+      intake.spin(reverse, 100, percent);
     }else{
       // else statement, probably should never be used
       intake.spin(reverse, 100, percent);

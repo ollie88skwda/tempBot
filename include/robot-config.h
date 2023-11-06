@@ -10,7 +10,7 @@ extern motor RF;
 extern motor RB;
 extern motor RT;
 extern motor LT;
-extern inertial Inertial20;
+extern inertial Inertial17;
 extern controller Controller1;
 extern limit CataLimit;
 extern motor intake;

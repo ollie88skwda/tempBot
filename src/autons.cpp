@@ -2,10 +2,10 @@
 
 void default_constants(){
   // Each constant set is in the form of (maxVoltage, kP, kI, kD, startI).
-  chassis.set_drive_constants(10, 1.5, 0, 10, 0);
+  chassis.set_drive_constants(10, 0., 0, 0, 0);
   chassis.set_heading_constants(6, .4, 0, 1, 0);
-  chassis.set_turn_constants(12, .4, .03, 3, 15);
-  chassis.set_swing_constants(12, .3, .001, 2, 15);
+  chassis.set_turn_constants(12, 0.6, 0.065, 3.2, 15);
+  chassis.set_swing_constants(12, .75, 0.03, 1, 15);
 
   // Each exit condition set is in the form (settle_error, settle_time, timeout).
   chassis.set_drive_exit_conditions(1.5, 300, 5000);
@@ -77,6 +77,20 @@ void holonomic_odom_test(){
   chassis.holonomic_drive_to_point(18, 0, 180);
   chassis.holonomic_drive_to_point(0, 18, 270);
   chassis.holonomic_drive_to_point(0, 0, 0);
+}
+
+void myAuton(){
+  chassis.drive_distance(36);
+  wait(3, seconds);
+  chassis.drive_distance(-36);
+  // chassis.drive_distance(10);
+  // chassis.drive_distance(-10);
+  // chassis.drive_distance(5);
+  // chassis.drive_distance(-5);
+  // chassis.drive_distance(10);
+  // chassis.drive_distance(-10);
+  
+
 }
 // it's called boring because its boring, we cant score very much
 void BoringAuton(){
