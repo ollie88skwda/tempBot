@@ -1,5 +1,4 @@
 #include "vex.h"
-
 using namespace vex;
 competition Competition;
 
@@ -189,6 +188,7 @@ void autonomous(void)
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
+
 void usercontrol(void)
 {
   // User control code here, inside the loop
@@ -199,12 +199,8 @@ void usercontrol(void)
     // values based on feedback from the joysticks.
 
     // ........................................................................
-    LF.setBrake(brakeType::coast);
-    LB.setBrake(brakeType::coast);
-    LT.setBrake(brakeType::coast);
-    RF.setBrake(brakeType::coast);
-    RB.setBrake(brakeType::coast);
-    RT.setBrake(brakeType::coast);
+    chassis.DriveL.setStopping(brakeType::coast);
+    chassis.DriveR.setStopping(brakeType::coast);
     // ........................................................................
 
     // Replace this line with chassis.control_tank(); for tank drive
@@ -284,10 +280,17 @@ void usercontrol(void)
       cata.spin(fwd, 100, percent);
     }else if (CataLimit.pressing() && !Controller1.ButtonB.pressing()){
       cata.stop(brakeType::hold);
+      chassis.DriveL.setStopping(brakeType::coast);
+      chassis.DriveR.setStopping(brakeType::coast);
     }else if (CataLimit.pressing() && Controller1.ButtonB.pressing()){
       cata.spin(fwd, 100, percent);
+      //hold bot in place while matchloading
+      chassis.DriveL.setStopping(brakeType::hold);
+      chassis.DriveR.setStopping(brakeType::hold);
     }
 
+    //hold in place
+    
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
