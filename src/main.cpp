@@ -132,16 +132,15 @@ void pre_auton(void)
       Brain.Screen.printAt(50, 50, "Holonomic Odom Test");
       break;
     }
-    if (Brain.Screen.pressing())
-    {
-      while (Brain.Screen.pressing())
-      {
+    if (Brain.Screen.pressing()) {
+      while (Brain.Screen.pressing()) {
       }
       current_auton_selection++;
-    }
-    else if (current_auton_selection == 8)
-    {
+
+    } else if (current_auton_selection == 8) {
+
       current_auton_selection = 0;
+
     }
     task::sleep(10);
   }
@@ -156,7 +155,7 @@ void autonomous(void)
     myAuton(); // This is the default auton, if you don't select from the brain.
     break;        // Change these to be your own auton functions in order to use the auton selector.
   case 1:         // Tap the screen to cycle through autons.
-    myAuton();
+    BoringAuton();
     break;
   case 2:
     turn_test();
