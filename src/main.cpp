@@ -132,16 +132,15 @@ void pre_auton(void)
       Brain.Screen.printAt(50, 50, "Holonomic Odom Test");
       break;
     }
-    if (Brain.Screen.pressing())
-    {
-      while (Brain.Screen.pressing())
-      {
+    if (Brain.Screen.pressing()) {
+      while (Brain.Screen.pressing()) {
       }
       current_auton_selection++;
-    }
-    else if (current_auton_selection == 8)
-    {
+
+    } else if (current_auton_selection == 8) {
+
       current_auton_selection = 0;
+
     }
     task::sleep(10);
   }
@@ -156,26 +155,26 @@ void autonomous(void)
     myAuton(); // This is the default auton, if you don't select from the brain.
     break;        // Change these to be your own auton functions in order to use the auton selector.
   case 1:         // Tap the screen to cycle through autons.
-    drive_test();
+    BoringAuton();
     break;
-  case 2:
-    turn_test();
-    break;
-  case 3:
-    swing_test();
-    break;
-  case 4:
-    full_test();
-    break;
-  case 5:
-    odom_test();
-    break;
-  case 6:
-    tank_odom_test();
-    break;
-  case 7:
-    holonomic_odom_test();
-    break;
+  // case 2:
+  //   turn_test();
+  //   break;
+  // case 3:
+  //   swing_test();
+  //   break;
+  // case 4:
+  //   full_test();
+  //   break;
+  // case 5:
+  //   odom_test();
+  //   break;
+  // case 6:
+  //   tank_odom_test();
+  //   break;
+  // case 7:
+  //   holonomic_odom_test();
+  //   break;
   }
   
 }
@@ -213,6 +212,15 @@ void usercontrol(void)
     chassis.control_arcade();
 
     // code
+    if(Controller1.ButtonL1.pressing()){
+      //Blocker Up
+      blocker.spin(fwd, 100, percent);
+    }else if (Controller1.ButtonL2.pressing()){
+      //Blocker Down
+      blocker.spin(reverse, 100, percent);
+    }else if ((!Controller1.ButtonL1.pressing() && !Controller1.ButtonL2.pressing())) {
+      blocker.stop(brakeType::hold);
+    }
 
     //blocker
     if (Controller1.ButtonUp.pressing()){

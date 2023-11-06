@@ -23,7 +23,6 @@ motor blocker = motor(PORT8, ratio18_1, true);
 digital_out IntakeUp = digital_out(Brain.ThreeWirePort.C);
 digital_out wingLeft = digital_out(Brain.ThreeWirePort.E);
 digital_out wingRight = digital_out(Brain.ThreeWirePort.F);
-
 // VEXcode generated functions
 
 
