@@ -231,13 +231,13 @@ void usercontrol(void)
     if (Controller1.ButtonX.pressing()){
       IntakeUp.set(!IntakeUp);
       IntakeIsUp = IntakeUp;
-      // while (Controller1.ButtonX.pressing()){} not sure what this line is for?
+      while (Controller1.ButtonX.pressing()){} //these are to prevent it from firing forever on one press
     }
     
     if (Controller1.ButtonA.pressing()){
       IntakeUp.set(!IntakeUp);
       IntakeIsUp = IntakeUp;
-      // while (Controller1.ButtonA.pressing()){} not sure what this line is for?
+      while (Controller1.ButtonA.pressing()){}
     }
 
     //intake motor intakes in
@@ -260,19 +260,20 @@ void usercontrol(void)
     // wings left
     if (Controller1.ButtonLeft.pressing()){
       wingLeft.set(!wingLeft);
-      // while(Controller1.ButtonLeft.pressing()){}; no idea what this line does
+      while(Controller1.ButtonLeft.pressing()){};
     }
 
     //wings right
     if (Controller1.ButtonRight.pressing()){
       wingRight.set(!wingRight);
-      // while(Controller1.ButtonRight.pressing()){}; no idea what this line does
+    while(Controller1.ButtonRight.pressing()){};
     }
 
     //both wings
     if (Controller1.ButtonY.pressing()){
       wingLeft.set(!wingLeft);
       wingRight.set(!wingRight);
+       while(Controller1.ButtonY.pressing()){};
     }
 
     //cata
