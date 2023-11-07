@@ -95,52 +95,118 @@ Drive chassis(
 int current_auton_selection = 0;
 bool auto_started = false;
 
+void autonSelector(){
+  Controller1.Screen.setCursor(3,4);
+  switch(current_auton_selection){       //Tap the brain screen to cycle through autons.
+      case 0:
+        Brain.Screen.printAt(180, 120, "Goal Side");
+        Controller1.Screen.setCursor(3,1);
+        Controller1.Screen.print("Goal Side");
+        break;
+      case 1:
+        Brain.Screen.printAt(180, 120, "Bar Side");
+        Controller1.Screen.setCursor(3,1);
+        Controller1.Screen.print("Bar Side");
+        break;
+      
+      case 2:
+        Brain.Screen.printAt(180, 120, "Skills");
+        Controller1.Screen.setCursor(3,1);
+        Controller1.Screen.print("Skills");
+        break;
+        /*
+      case 3:
+        Brain.Screen.printAt(180, 120, "Opp Side Blue");
+        //controllerPTOUpdate();
+        Controller1.Screen.setCursor(3,1);
+        Controller1.Screen.print("Opp Side Blue");
+        break;
+  
+      case 4:
+        Brain.Screen.printAt(180,120, "Skills");
+        Controller1.Screen.setCursor(3,1);
+        Controller1.Screen.print("Skills");*/
+    }
+    if(Brain.Screen.pressing()){
+      while(Brain.Screen.pressing()) {}
+      Brain.Screen.clearScreen();
+      current_auton_selection ++;
+      Controller1.Screen.clearLine(3);
+    
+    } else if (current_auton_selection == 3){
+      current_auton_selection = 0;
+    } /*else if (Controller1.ButtonY.pressing() && Controller1.ButtonRight.pressing()){
+      current_auton_selection ++;
+      Brain.Screen.clearScreen();
+    }*/
+    wait(50, msec);
+}
+
+void printMotorTemps(){
+  Brain.Screen.setCursor(1,1);
+  Brain.Screen.print("Chassis:");
+  Brain.Screen.newLine();
+  Brain.Screen.print(LF.temperature(percent));
+  Brain.Screen.setCursor(2, 8);
+  Brain.Screen.print(LB.temperature(percent));
+  Brain.Screen.setCursor(2, 16);
+  Brain.Screen.print(LT.temperature(percent));
+  Brain.Screen.setCursor(2, 24);
+  Brain.Screen.print(RF.temperature(percent));
+  Brain.Screen.setCursor(2, 32);
+  Brain.Screen.print(RB.temperature(percent));
+  Brain.Screen.setCursor(2, 40);
+  Brain.Screen.print(RT.temperature(percent));
+  Brain.Screen.newLine();
+  Brain.Screen.print("Lift:");
+  Brain.Screen.newLine();
+  Brain.Screen.print(lift.temperature(percent));
+  Brain.Screen.newLine();
+  Brain.Screen.print("Intake:");
+  Brain.Screen.newLine();
+  Brain.Screen.print(intake.temperature(percent));
+  Brain.Screen.newLine();
+  Brain.Screen.print("Cata:");
+  Brain.Screen.newLine();
+  Brain.Screen.print(cata.temperature(percent));
+}
+
+void brainScreenPrint(){
+  switch(brainCurrentScreen){
+    case 0:
+      autonSelector();
+      //Brain.Screen.printAt(50,50,"hello");
+      break;
+    case 1:
+    //Brain Image
+      Brain.Screen.drawImageFromFile("file.png", 0, 0);
+      break;
+    case 2:
+    //motor temps
+    printMotorTemps();
+    break;
+  }
+  if(Controller1.ButtonRight.pressing() && !Controller1.ButtonY.pressing()){
+    while(Controller1.ButtonRight.pressing());
+    Brain.Screen.clearScreen();
+    brainCurrentScreen++;
+  }
+
+  if (brainCurrentScreen == 3){
+    Brain.Screen.clearScreen();
+    brainCurrentScreen = 0;
+  }
+}
+
 void pre_auton(void)
 {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   default_constants();
-
   while (auto_started == false)
   {                             // Changing the names below will only change their names on the
     Brain.Screen.clearScreen(); // brain screen for auton selection.
-    switch (current_auton_selection)
-    { // Tap the brain screen to cycle through autons.
-    case 0:
-      Brain.Screen.printAt(50, 50, "Drive Test");
-      break;
-    case 1:
-      Brain.Screen.printAt(50, 50, "Drive Test");
-      break;
-    case 2:
-      Brain.Screen.printAt(50, 50, "Turn Test");
-      break;
-    case 3:
-      Brain.Screen.printAt(50, 50, "Swing Test");
-      break;
-    case 4:
-      Brain.Screen.printAt(50, 50, "Full Test");
-      break;
-    case 5:
-      Brain.Screen.printAt(50, 50, "Odom Test");
-      break;
-    case 6:
-      Brain.Screen.printAt(50, 50, "Tank Odom Test");
-      break;
-    case 7:
-      Brain.Screen.printAt(50, 50, "Holonomic Odom Test");
-      break;
-    }
-    if (Brain.Screen.pressing()) {
-      while (Brain.Screen.pressing()) {
-      }
-      current_auton_selection++;
-
-    } else if (current_auton_selection == 8) {
-
-      current_auton_selection = 0;
-
-    }
+    brainScreenPrint();
     task::sleep(10);
   }
 }
