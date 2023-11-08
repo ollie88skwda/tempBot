@@ -19,7 +19,7 @@ competition Competition;
 /*  all the physical constants and values for your robot. You should         */
 /*  already have configured your robot manually with the sidebar configurer. */
 /*---------------------------------------------------------------------------*/
-bool IntakeIsUp = false;
+bool IntakeIsUp = true;
 Drive chassis(
 
     // Specify your drive setup below. There are eight options:
@@ -158,9 +158,9 @@ void printMotorTemps(){
   Brain.Screen.setCursor(2, 40);
   Brain.Screen.print(RT.temperature(percent));
   Brain.Screen.newLine();
-  Brain.Screen.print("Lift:");
+  Brain.Screen.print("Blocker:");
   Brain.Screen.newLine();
-  Brain.Screen.print(lift.temperature(percent));
+  Brain.Screen.print(blocker.temperature(percent));
   Brain.Screen.newLine();
   Brain.Screen.print("Intake:");
   Brain.Screen.newLine();
@@ -170,7 +170,7 @@ void printMotorTemps(){
   Brain.Screen.newLine();
   Brain.Screen.print(cata.temperature(percent));
 }
-
+int brainCurrentScreen = 0;
 void brainScreenPrint(){
   switch(brainCurrentScreen){
     case 0:
@@ -217,7 +217,7 @@ void autonomous(void)
   switch (current_auton_selection)
   {
   case 0:
-    turn_test(); // This is the default auton, if you don't select from the brain.
+    BoringAuton(); // This is the default auton, if you don't select from the brain.
     break;        // Change these to be your own auton functions in order to use the auton selector.
   case 1:         // Tap the screen to cycle through autons.
     BoringAuton();
@@ -312,11 +312,11 @@ void usercontrol(void)
     }else if (Controller1.ButtonR2.pressing()){
       //intake motor out
       intake.spin(fwd, 100, percent);
-    }else if (IntakeIsUp == true && !Controller1.ButtonR2.pressing() && !Controller1.ButtonR1.pressing()){
-      // intake motor out if intake is up
-      intake.spin(fwd, 100, percent);
     }else if (IntakeIsUp == false && !Controller1.ButtonR2.pressing() && !Controller1.ButtonR1.pressing()){
+      // intake motor out if intake is up
       intake.spin(reverse, 100, percent);
+    }else if (IntakeIsUp == true && !Controller1.ButtonR2.pressing() && !Controller1.ButtonR1.pressing()){
+      intake.spin(fwd, 100, percent);
     }else{
       // else statement, probably should never be used
       intake.spin(reverse, 100, percent);
