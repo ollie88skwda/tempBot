@@ -217,7 +217,7 @@ void autonomous(void)
   switch (current_auton_selection)
   {
   case 0:
-    BoringAuton(); // This is the default auton, if you don't select from the brain.
+    FunAuton(); // This is the default auton, if you don't select from the brain.
     break;        // Change these to be your own auton functions in order to use the auton selector.
   case 1:         // Tap the screen to cycle through autons.
     BoringAuton();

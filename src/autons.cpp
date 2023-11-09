@@ -8,7 +8,7 @@ void default_constants(){
   chassis.set_swing_constants(12, 1, 0.005, 2.4, 15);
 
   // Each exit condition set is in the form (settle_error, settle_time, timeout).
-  chassis.set_drive_exit_conditions(1.5, 300, 5000);
+  chassis.set_drive_exit_conditions(1.5, 300, 3000);
   chassis.set_turn_exit_conditions(1, 300, 3000);
   chassis.set_swing_exit_conditions(1, 300, 3000);
 }
@@ -109,60 +109,57 @@ void myAuton(){
 }
 // it's called boring because its boring, we cant score very much
 void BoringAuton(){
-  intake.setVelocity(50, percent);
+  intake.setVelocity(69, percent);
   blocker.setVelocity(50, percent);
-  blocker.spinFor(10, deg, false);
   IntakeUp.set(true);
-  intake.spinFor(180, deg);
-  IntakeUp.set(false);
-  chassis.drive_distance(27);
+  wait(0.5, seconds);
+  // blocker.spinFor(100, deg);
+  // intake.spinFor(240, deg);
+  // IntakeUp.set(false);
+  chassis.drive_distance(27, 3);
   chassis.drive_distance(-18);
   chassis.right_swing_to_angle(60);
   IntakeUp.set(true);
-  chassis.drive_distance(5.5);
-  blocker.spinFor(-515, deg);
-  chassis.drive_distance(-3);
-  blocker.spinFor(-40, deg);
   // wait(0.25, seconds);
-  chassis.drive_distance(55, 35);
+  chassis.drive_distance(5.5);
+  blocker.spinFor(-555, deg);
+  // wait(0.25, seconds);
+  chassis.drive_distance(-3);
+  blocker.spinFor(-60, deg);
+  // IntakeUp.set(false);
+  chassis.drive_distance(45);
+  blocker.spinFor(60, deg);
+  chassis.turn_to_angle(-20);
+  chassis.drive_distance(-17);
+  // intake.spin(reverse);
+  // IntakeUp.set(true);
+  // wait(.1, seconds);
+  // intake.stop();
+  // chassis.right_swing_to_angle(-70);
+
 
 
 }
 //called FunAuton because it's fun, hopefully 5 ball auton + bar for quals
 void FunAuton(){
+  IntakeUp.set(true);
+  intake.setVelocity(100, percent);
+  chassis.drive_distance(-20);
+  chassis.left_swing_to_angle(110);
+  intake.spin(reverse);
+  chassis.drive_distance(40);
+  // IntakeUp.set(true);
+  // chassis.drive_distance(2);
+  wait(0.5, seconds);
+  chassis.turn_to_angle(-105);
+  chassis.drive_distance(3);
+  intake.stop();
   IntakeUp.set(false);
-
-  //drive back
-  
-  //swing turn back right a little
-
-  // deploy wings
-
-  //swing turn back right the full 90 degrees
-
-  //go backwards, push 2 triballs in, preload and one from matchload
-
-  //go forwards, (maybe) swing turn forward right to face the middle triball
-
-  //go forwards to the triball, almost touching
-
-  //deploy wings, turn right, hopefully knocking middle triball
-
-  //outtake triball
-
-  //deploy wings, turn just over 180, go forward
-
-  //intake triball
-
-  //set_heading to 0
-
-  //drive backwards full speed
-
-  // drive forward, set_heading to 180
-
-  //outtake, drive_forward
-
-  // turn to bar, drive forward to touch bar
+  chassis.drive_distance(5, -115);
+  wait(0.25, seconds);
+  chassis.turn_to_angle(150);
+  intake.spin(reverse);
+  chassis.drive_distance(17);
 }
 
 //it's called really fun because we get a lot of triballs hopefully :)
