@@ -155,11 +155,23 @@ void FunAuton(){
   chassis.drive_distance(3);
   intake.stop();
   IntakeUp.set(false);
-  chassis.drive_distance(5, -115);
+  chassis.drive_distance(7, -115);
   wait(0.25, seconds);
-  chassis.turn_to_angle(150);
+  chassis.turn_to_angle(180);
+  IntakeUp.set(true);
   intake.spin(reverse);
-  chassis.drive_distance(17);
+  chassis.drive_distance(5);
+  chassis.turn_to_angle(-90);
+  IntakeUp.set(false);
+  chassis.turn_to_angle(90);
+  wingLeft.set(false);
+  wingRight.set(false);
+  chassis.drive_distance(-25);
+  blocker.spinFor(-300, degrees, false);
+  chassis.drive_distance(10);
+  chassis.turn_to_angle(-135);
+  chassis.drive_distance(-30);
+  
 }
 
 //it's called really fun because we get a lot of triballs hopefully :)
