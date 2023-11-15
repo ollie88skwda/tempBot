@@ -109,8 +109,59 @@ void myAuton(){
 }
 // it's called boring because its boring, we cant score very much
 void BoringAuton(){
+  // set velocities
+  blocker.setVelocity(75, percent);
+  intake.setVelocity(100, percent);
+
+  //set blocker up so doesn't get stuck
+  blocker.spinFor(-100, degrees, false);
+
+  //drive forward and back to take out with wings
+  chassis.drive_distance(10);
+  wingLeft.set(true);
+  chassis.drive_distance(-10);
+  chassis.turn_to_angle(-20);
+  chassis.turn_to_angle(0);
+  wingLeft.set(false);
+
+  //drive forward, swing turn
+  chassis.drive_distance(8);
+  chassis.left_swing_to_angle(45);
+
+  //push ball in and come back out
+  chassis.drive_distance(18);
+  chassis.drive_distance(-6);
+
+  //drive to get ready to get middle ball
+  chassis.turn_to_angle(135);
+  chassis.drive_distance(35);
+  chassis.turn_to_angle(45);
+
+  //prepare to intake
+  IntakeUp.set(true);
+  intake.spin(reverse);
+
+  //get ball
+  chassis.drive_distance(29);
+  chassis.drive_distance(-5);
+
+  //score for other side
+  chassis.turn_to_angle(135);
+  intake.spin(forward);
+  IntakeUp.set(false);
+  chassis.drive_distance(15.5);
+  chassis.drive_distance(-15);
+
+  //touch bar
+  blocker.spinFor(-385, degrees, false);
+  chassis.turn_to_angle(15);
+  chassis.drive_distance(-25);
+
+
+  /*
   intake.setVelocity(69, percent);
   blocker.setVelocity(50, percent);
+  blocker.spinTo(-50, degrees);
   IntakeUp.set(true);
   wait(0.5, seconds);
   // blocker.spinFor(100, deg);
@@ -118,17 +169,17 @@ void BoringAuton(){
   // IntakeUp.set(false);
   chassis.drive_distance(27, 3);
   chassis.drive_distance(-18);
-  chassis.right_swing_to_angle(60);
+  chassis.right_swing_to_angle(65);
   IntakeUp.set(true);
   // wait(0.25, seconds);
-  chassis.drive_distance(5.5);
-  blocker.spinFor(-555, deg);
+  chassis.drive_distance(6);
+  blocker.spinTo(-605, deg);
   // wait(0.25, seconds);
   chassis.drive_distance(-3);
-  blocker.spinFor(-60, deg);
+  blocker.spinTo(-665, deg);
   // IntakeUp.set(false);
   chassis.drive_distance(45);
-  blocker.spinFor(60, deg);
+  blocker.spinTo(-505, deg);
   chassis.turn_to_angle(-20);
   chassis.drive_distance(-17);
   // intake.spin(reverse);
@@ -136,6 +187,7 @@ void BoringAuton(){
   // wait(.1, seconds);
   // intake.stop();
   // chassis.right_swing_to_angle(-70);
+  */
 
 
 

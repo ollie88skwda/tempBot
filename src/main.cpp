@@ -217,7 +217,7 @@ void autonomous(void)
   switch (current_auton_selection)
   {
   case 0:
-    FunAuton(); // This is the default auton, if you don't select from the brain.
+    BoringAuton(); // This is the default auton, if you don't select from the brain.
     break;        // Change these to be your own auton functions in order to use the auton selector.
   case 1:         // Tap the screen to cycle through autons.
     BoringAuton();
@@ -272,7 +272,7 @@ void usercontrol(void)
     // Replace this line with chassis.control_tank(); for tank drive
     // or chassis.control_holonomic(); for holo drive.
     chassis.control_arcade();
-
+    /*
     // code
     if(Controller1.ButtonL1.pressing()){
       //Blocker Up
@@ -283,11 +283,12 @@ void usercontrol(void)
     }else if ((!Controller1.ButtonL1.pressing() && !Controller1.ButtonL2.pressing())) {
       blocker.stop(brakeType::hold);
     }
+    */
 
     //blocker
-    if (Controller1.ButtonUp.pressing()){
+    if (Controller1.ButtonL1.pressing()){
       blocker.spin(reverse, 100, percent);
-    }else if (Controller1.ButtonDown.pressing()){
+    }else if (Controller1.ButtonL2.pressing()){
       blocker.spin(fwd, 100, percent);
     }else if ((!Controller1.ButtonUp.pressing() && !Controller1.ButtonDown.pressing())){
       blocker.stop(brakeType::hold);
